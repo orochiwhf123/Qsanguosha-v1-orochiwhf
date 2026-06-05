@@ -758,7 +758,7 @@ QString GameRule::getWinner(ServerPlayer *victim) const{
         QStringList alive_roles = room->aliveRoles(victim);
         switch(victim->getRoleEnum()){
         case Player::Lord:{
-                if(!alive_roles.contains("rebel") && !alive_roles.contains("lord"))
+                if(!alive_roles.contains("rebel") && !alive_roles.contains("lord"))//反贼死光后内直取主公项上人头即可获胜
                     winner = "renegade";
                 else
                     winner = "rebel";
