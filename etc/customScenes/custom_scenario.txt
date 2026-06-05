@@ -1,0 +1,5 @@
+
+general:neo_xuchu role:lord starter:true acquireSkills:luoyi equip:59 hand:0 
+general:caiwenji role:renegade 
+general:sp_caiwenji role:rebel 
+general:zhangliao role:renegade 

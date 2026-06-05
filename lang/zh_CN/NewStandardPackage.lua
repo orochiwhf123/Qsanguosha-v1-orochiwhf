@@ -1,0 +1,81 @@
+-- translation for NewStandard Package
+
+return {
+	["new_standard"] = "新标风",
+
+	["#new_huaxiong"] = "飞扬跋扈",
+	["new_huaxiong"] = "华雄",
+	["designer:new_huaxiong"] = "不明",
+	["illustrator:new_huaxiong"] = "地狱许",
+	["cv:new_huaxiong"] = "极光星逝",
+	["yaowu"] = "耀武",
+	[":yaowu"] = "<b>锁定技</b>，当任意一名角色使用红色【杀】对你造成伤害时，该角色回复一点体力或摸一张牌。",
+	["$yaowu"] = "好快！",
+
+	["#new_yuanshu"] = "野心徒增",
+	["new_yuanshu"] = "袁术",
+	["designer:new_yuanshu"] = "不明",
+	["illustrator:new_yuanshu"] = "LiuHeng",
+	["wangzun"] = "妄尊",
+	[":wangzun"] = "主公的准备阶段开始时，你可以摸一张牌，若如此做，本回合主公手牌上限-1. ",
+	["tongji"] = "同疾",
+	[":tongji"] = "<b>锁定技</b>，如你的手牌数大于你的体力值，则只要你在任一其他角色的攻击范围内，该角色使用【杀】时便不能指定你以外的角色为目标。",
+
+	["#new_huangyueying"] = "倒霉的杰女",
+	["new_huangyueying"] = "黄月英",
+	["illustrator:new_huangyueying"] = "Ask",
+	["cv:new_huangyueying"] = "眠眠",
+	["new_jizhi"] = "集彘",
+	[":new_jizhi"] = "当你使用一张锦囊牌时，你可以展示牌堆顶牌，若该牌为基本牌，将之置入弃牌堆或用一张手牌与之交换；若不为基本牌，则将之收入手牌。",
+	["@newjizhi"] = "你可以用一张手牌替换 %arg，或者将 %arg 置入弃牌堆",
+	["new_qicai"] = "奇柴",
+	[":new_qicai"] = "锁定技，你使用任何锦囊牌无距离限制；其他角色不能弃置你装备区里除坐骑之外的牌。",
+	["#NewQicai"] = "受到 %to 的锁定技【%arg】影响，%from 不能弃置 %to 装备区里除坐骑之外的牌",
+	["$new_jizhi"] = "哼哼~",
+	["$new_qicai"] = "如何？",
+
+	["#new_liubei"] = "倒霉的皇叔",
+	["new_liubei"] = "刘备",
+	["illustrator:new_liubei"] = "木美人",
+	["cv:new_liubei"] = "鬼叔",
+	["new_rende"] = "二德",
+	[":new_rende"] = "出牌阶段限一次，你可以将任意数量的手牌交给其他角色，若你给出的牌张数达2张或更多时，你回复1点体力。",
+	["$new_rende"] = "以德服人。",
+
+	["#new_diaochan"] = "倒霉的舞姬",
+	["new_diaochan"] = "貂蝉",
+	["illustrator:new_diaochan"] = "木美人",
+	["cv:new_diaochan"] = "眠眠",
+	["new_lijian"] = "離間",
+	[":new_lijian"] = "出牌阶段限一次，你可以弃置一张牌并选择两名男性角色，若如此做，视为其中一名男性角色对另一名男性角色使用一张【决斗】。",
+	["$new_lijian"] = "嗯哼～",
+	
+	["#new_caoren"] = "大将军",
+	["new_caoren"] = "曹仁",
+	["illustrator:new_caoren"] = "Ccat",
+	["new_jushou"] = "据守",
+	[":new_jushou"] = "结束阶段开始时，你可以摸一张牌，然后将你的武将牌翻面。",
+	["jiewei"] = "解围",
+	[":jiewei"] = "每当你的武将牌翻面后，你可以摸一张牌，然后你可以使用一张锦囊牌或装备牌，若如此做，你可以弃置场上与此牌类别相同的一张牌。",
+	["@jiewei"] = "你可以使用一张锦囊牌或装备牌，然后弃置弃置场上与此牌类别相同的一张牌",
+
+	
+	["#new_zhangjiao"] = "天公将军",
+	["new_zhangjiao"] = "张角",
+	["illustrator:new_zhangjiao"] = "LiuHeng",
+	["new_leiji"] = "雷击",
+	[":new_leiji"] = "每当你使用或打出【闪】时，你可以令一名其他角色进行判定，若结果为黑色，你对该角色造成1点雷电伤害，然后你回复1点体力。",
+	["@new_leiji"] = "令一名其他角色进行判定，若结果为黑色，你对该角色造成1点雷电伤害，然后你回复1点体力",
+
+	
+	["#new_zhoutai"] = "历战之驱",
+	["new_zhoutai"] = "周泰",
+	["illustrator:new_zhoutai"] = "Thinking",
+	["new_buqu"] = "不屈",
+	["vulnus"] = "创",
+	[":new_buqu"] = "<font color=\"blue\"><b>锁定技，</b></font>每当你处于濒死状态时，你将牌堆顶的一张牌置于你的武将牌上，称为“创”，若此“创”与其他的“创”点数均不同，你回复至1点体力，否则你将此“创”置入弃牌堆且你不能发动【不屈】，直到此次濒死结算完毕；<font color=\"blue\"><b>锁定技，</b></font>若有“创，你的手牌上限等于X（X为 “创”的数量）。",
+	--["fenji"] = "奋激",
+	--[":fenji"] = "每当一名角色被另一名角色获得手牌时，或因另一名角色的弃置而失去手牌时，你可以失去1点体力，令该失去手牌的角色摸两张牌。",
+	
+	
+}
