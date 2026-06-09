@@ -3,8 +3,8 @@
 -- and it is a little different from config.ini
 
 config = {
-	version = "20230928",
-	version_name = "鬼隐版 Stage 7",
+	version = "20260609",
+	version_name = "基于鬼隐版 Stage 7",
 	mod_name = "official",
 	kingdoms = { 
 		"wei", 
