@@ -266,7 +266,7 @@ public:
     virtual bool trigger(TriggerEvent, Room* room, ServerPlayer *player, QVariant &data) const{
         DamageStar damage = data.value<DamageStar>();
         ServerPlayer *killer = damage ? damage->from : NULL;
-        //if(damage && damage->from && damage->from->getGeneralName() != "anjiang"){
+        //修复无伤害来源致死崩溃的BUG；if(damage && damage->from && damage->from->getGeneralName() != "anjiang"){
         if(killer && damage->from->getGeneralName() != "anjiang"){
             if (player == NULL) return false;
             if (damage->from->getGeneralName() == "lingdonglai" || damage->from->getGeneral2Name() == "lingdonglai")
