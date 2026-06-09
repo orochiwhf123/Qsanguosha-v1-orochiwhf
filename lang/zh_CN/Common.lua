@@ -1,5 +1,5 @@
 return {
-	["QSanguosha"] = "太阳神三国杀V1鬼隐版 - orochiwhf - 20230928",
+	["QSanguosha"] = "太阳神三国杀V1鬼隐版 - orochiwhf - 20260609",
 	["Pairs"] = "双将",
 
 	["spade"] = "黑桃",
