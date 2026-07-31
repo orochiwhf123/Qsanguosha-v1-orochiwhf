@@ -3308,88 +3308,7 @@ miaoyu=sgs.CreateTriggerSkill{
 	end,
 }
 
----------------
---回合开始时，你可以令你攻击范围内的角色各弃置一张手牌，然后你将其中一张牌交给一名其他角色，从剩余弃牌堆中获得至多三张牌。
-lundao=sgs.CreateTriggerSkill{
-	name="lundao",
-	frequency=sgs.Skill_NotFrequent,
-	events={sgs.PhaseChange},
-	on_trigger=function(self,event,player,data)
-		local room=player:getRoom()
-		if (event == sgs.PhaseChange and player:getPhase() == sgs.Player_RoundStart) then
-		if not room:askForSkillInvoke(player,self:objectName(),data) then return end
-		room:setPlayerFlag(player,"lundao")
-		if lundaocardids:length()~= 0 then
-			lundaocardids=sgs.IntList()
-		end
-		
-		  local pl = sgs.SPlayerList()
-		for _,f in sgs.qlist(room:getAlivePlayers()) do
-            if player:inMyAttackRange(f) and not f:isNude() then
-			    pl:append(f)
-			end
-			end
-			
-		for _,p in sgs.qlist(pl) do
-				room:askForDiscard(p,self:objectName(),1,false,true)
-				--room:throwCard(room:askForCardChosen(p,p,"he","lundao"),p)--后面加,targets[?]是弃置
-		end
-		room:setPlayerFlag(player,"-lundao")
-		if lundaocardids:isEmpty() then return end
-		local newlist=sgs.IntList()
-		for _,id in sgs.qlist(lundaocardids) do
-			if room:getCardPlace(id) == sgs.Player_DiscardedPile then
-				newlist:append(id)
-			end
-		end
-		if newlist:isEmpty() then return end
-		local target
-		for i=1,998,1 do
-			room:fillAG(newlist,nil)
-			card_id=room:askForAG(player,newlist, true, "lundao")
-			for _,p in sgs.qlist(room:getPlayers()) do
-				p:invoke("clearAG")
-			end
-			if card_id == -1 then break end
-			newlist:removeOne(card_id)
-			--if player:hasFlag("lundao") then
-				--target=player
-			--elseif player:getMark(self:objectName())>=3 then
-				--target=room:askForPlayerChosen(player,room:getOtherPlayers(player),self:objectName())
-			--else
-				target=room:askForPlayerChosen(player,room:getAllPlayers(),self:objectName())
-			--end
-			--if target:objectName()==player:objectName() then
-				--player:addMark(self:objectName())
-			--else
-				--room:setPlayerFlag(player,"lundao")
-			--end
-			target:obtainCard(sgs.Sanguosha:getCard(card_id))
-			if newlist:isEmpty() then break end
-		end
-	end
-		--room:setPlayerFlag(player,"-lundao")
-		--room:setPlayerMark(player,self:objectName(),0)
-end,
-}
 
-lundaocardids=sgs.IntList()
-lundaorecord=sgs.CreateTriggerSkill{
-	name="#lundaorecord",
-	frequency=sgs.Skill_Compulsory,
-	events={sgs.CardLost},
-	on_trigger=function(self,event,player,data)
-		local room=player:getRoom()
-		local splayer=room:findPlayerBySkillName(self:objectName())
-		if not splayer then return end
-		if not splayer:hasFlag("lundao") then return end
-		local move=data:toCardMove()
-		lundaocardids:append(move.card_id)
-	end,
-	can_trigger=function(self,target)
-		return true
-	end,
-}--------
 
 xinghe = sgs.CreateTriggerSkill
 {
@@ -3949,10 +3868,93 @@ shixuezhu=sgs.CreateTriggerSkill{
 		end
 	end,
 }
+---------------
+--回合开始时，你可以令你攻击范围内的角色各弃置一张牌（包括装备），然后你将其中一张牌交给一名其他角色，从剩余弃牌堆中获得至多三张牌（此为注释部分，实际效果改为任意分配）。
+lundao=sgs.CreateTriggerSkill{
+	name="lundao",
+	frequency=sgs.Skill_NotFrequent,
+	events={sgs.PhaseChange},
+	on_trigger=function(self,event,player,data)
+		local room=player:getRoom()
+		if (event == sgs.PhaseChange and player:getPhase() == sgs.Player_RoundStart) then
+		if not room:askForSkillInvoke(player,self:objectName(),data) then return end
+		room:setPlayerFlag(player,"lundao")
+		if lundaocardids:length()~= 0 then
+			lundaocardids=sgs.IntList()
+		end
+		
+		  local pl = sgs.SPlayerList()
+		for _,f in sgs.qlist(room:getAlivePlayers()) do
+            if player:inMyAttackRange(f) and not f:isNude() then
+			    pl:append(f)
+			end
+			end
+			
+		for _,p in sgs.qlist(pl) do
+				room:askForDiscard(p,self:objectName(),1,false,true)--后两个参数表示：强制弃牌，包括装备
+				--room:throwCard(room:askForCardChosen(p,p,"he","lundao"),p)--后面加,targets[?]是弃置
+		end
+		room:setPlayerFlag(player,"-lundao")
+		if lundaocardids:isEmpty() then return end
+		local newlist=sgs.IntList()
+		for _,id in sgs.qlist(lundaocardids) do
+			if room:getCardPlace(id) == sgs.Player_DiscardedPile then
+				newlist:append(id)
+			end
+		end
+		if newlist:isEmpty() then return end
+		local target
+		for i=1,998,1 do
+			room:fillAG(newlist,nil)
+			card_id=room:askForAG(player,newlist, true, "lundao")
+			for _,p in sgs.qlist(room:getPlayers()) do
+				p:invoke("clearAG")
+			end
+			if card_id == -1 then break end
+			newlist:removeOne(card_id)
+			--if player:hasFlag("lundao") then
+				--target=player
+			--elseif player:getMark(self:objectName())>=3 then
+				--target=room:askForPlayerChosen(player,room:getOtherPlayers(player),self:objectName())
+			--else
+				target=room:askForPlayerChosen(player,room:getAllPlayers(),self:objectName())
+			--end
+			--if target:objectName()==player:objectName() then
+				--player:addMark(self:objectName())
+			--else
+				--room:setPlayerFlag(player,"lundao")
+			--end
+			target:obtainCard(sgs.Sanguosha:getCard(card_id))
+			if newlist:isEmpty() then break end
+		end
+	end
+		--room:setPlayerFlag(player,"-lundao")
+		--room:setPlayerMark(player,self:objectName(),0)
+end,
+}
 
+lundaocardids=sgs.IntList()
+lundaorecord=sgs.CreateTriggerSkill{
+	name="#lundaorecord",
+	frequency=sgs.Skill_Compulsory,
+	events={sgs.CardLost},
+	on_trigger=function(self,event,player,data)
+		local room=player:getRoom()
+		local splayer=room:findPlayerBySkillName(self:objectName())
+		if not splayer then return end
+		if not splayer:hasFlag("lundao") then return end
+		local move=data:toCardMove()
+		lundaocardids:append(move.card_id)
+	end,
+	can_trigger=function(self,target)
+		return true
+	end,
+}--------
 zhangxiaofan:addSkill(shixuezhu)
-zhangxiaofan:addSkill(shehunbangDS)
-zhangxiaofan:addSkill(shehunbang)
+--zhangxiaofan:addSkill(shehunbangDS)
+--zhangxiaofan:addSkill(shehunbang)
+zhangxiaofan:addSkill(lundao)
+zhangxiaofan:addSkill(lundaorecord)
 --zhangxiaofan:addSkill(tianshu_invoke)
 --zhangxiaofan:addSkill(tianshu)
 
@@ -5375,6 +5377,8 @@ sgs.LoadTranslationTable{
 	["tianshu"]="天书",
 	[":tianshu"]="<font color=\"blue\"><b>锁定技</b></font>：其他角色弃牌阶段结束时，若弃牌数大于１，则你须进行二选一：\n◆获得一张所弃的牌\n◆令其弃置一张手牌",
 	["tianshu_invoke"]="天书",
+	["lundao"]="摄魂",
+	[":lundao"]="回合开始时，你可依次执行以下两项行动：\n★令攻击范围内的角色各弃一张牌\n★将此阶段中被弃置的牌任意分配",
 
 ["tianbuyi"] = "田不易",
 	["shieng"]="师恩",
@@ -5402,8 +5406,7 @@ sgs.LoadTranslationTable{
 	["$miaoyu1"] = "滚滚惊雷，震天撼地。（雷杀）",
 	["$miaoyu2"] = "星星之火，可以燎原。（火杀）",
 	[":miaoyu"]="其他角色使用<font color=\"red\"><b>属性杀</b></font>时，该角色和你可以各摸一张牌，然后交换一张牌\n◆<font color=\"green\"><b>均从该角色开始</b></font>",
-	["lundao"]="论道",
-	[":lundao"]="回合开始时，你可依次执行以下两项行动：\n★令攻击范围内的角色各弃一张牌\n★将此阶段中被弃置的牌任意分配",
+
     ["lundaoo"]="论道",
     ["$lundaoo1"] = "代天宣化，普世救人。（红桃）",
 	["$lundaoo2"] = "龙困浅滩，一击可擒！（翻过去）",
