@@ -1030,7 +1030,8 @@ public:
 
         if(damage.from == NULL)
             return false;
-
+        if (!damage.from->isAlive())//陆伯言死后不触发
+            return false;
         if(!damage.from->hasSkill(objectName()))
             return false;
 
