@@ -3869,7 +3869,7 @@ shixuezhu=sgs.CreateTriggerSkill{
 	end,
 }
 ---------------
---回合开始时，你可以令你攻击范围内的角色各弃置一张牌（包括装备），然后你将其中一张牌交给一名其他角色，从剩余弃牌堆中获得至多三张牌（此为注释部分，实际效果改为任意分配）。
+--回合开始时，你可以令你距离2以内的角色各弃置一张牌（包括装备），然后你将其中一张牌交给一名其他角色，从剩余弃牌堆中获得至多三张牌（此为注释部分，实际效果改为任意分配）。
 lundao=sgs.CreateTriggerSkill{
 	name="lundao",
 	frequency=sgs.Skill_NotFrequent,
@@ -3885,7 +3885,8 @@ lundao=sgs.CreateTriggerSkill{
 		
 		  local pl = sgs.SPlayerList()
 		for _,f in sgs.qlist(room:getAlivePlayers()) do
-            if player:inMyAttackRange(f) and not f:isNude() then
+            --if player:inMyAttackRange(f) and not f:isNude() then
+			if player:distanceTo(f) < 3 and not f:isNude() then
 			    pl:append(f)
 			end
 			end
@@ -5378,7 +5379,7 @@ sgs.LoadTranslationTable{
 	[":tianshu"]="<font color=\"blue\"><b>锁定技</b></font>：其他角色弃牌阶段结束时，若弃牌数大于１，则你须进行二选一：\n◆获得一张所弃的牌\n◆令其弃置一张手牌",
 	["tianshu_invoke"]="天书",
 	["lundao"]="摄魂",
-	[":lundao"]="回合开始时，你可依次执行以下两项行动：\n★令攻击范围内的角色各弃一张牌\n★将此阶段中被弃置的牌任意分配",
+	[":lundao"]="回合开始时，你可依次执行以下两项行动：\n★令距离2以内的角色各弃一张牌（注意不是攻击范围）\n★将此阶段中被弃置的牌任意分配",
 
 ["tianbuyi"] = "田不易",
 	["shieng"]="师恩",
