@@ -46,22 +46,6 @@ sgs.ai_weapon_value.blade = function(self, enemy)
     return 0
 end
 
--- 青龙：五虎关羽装备青龙偃月刀后，不主动用其他武器替换
-local old_blade_value = sgs.ai_weapon_value.blade
-
-sgs.ai_weapon_value.blade = function(self, enemy)
-    if self.player:hasSkill("luaqinglong") then
-        if not enemy then
-            return 10000
-        end
-        return 0
-    end
-    if old_blade_value then
-        return old_blade_value(self, enemy)
-    end
-    return 0
-end
-
 -- 调整出牌优先级，确保青龙刀优先装备
 local old_getDynamicUsePriority = SmartAI.getDynamicUsePriority
 
